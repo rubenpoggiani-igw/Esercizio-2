@@ -15,7 +15,6 @@ app.listen(port, async () => {
   console.log('Connected successfully to server!!');
   const db = client.db(dbName);
   collection = db.collection('1');
-
   console.log('Server is running on port 3000!!')
 });
 
@@ -42,12 +41,6 @@ app.get('/devices', async (req, res) => {
     console.error('Errorrrr:', error);
   }
 });
-
-app.get('devices', asunc(req, res) => {
-
-});
-
-
 
 
 
