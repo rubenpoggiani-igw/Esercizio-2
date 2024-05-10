@@ -39,4 +39,21 @@ app.get('/devices', async (req, res) => {
   }
 });
 
+app.get('/devices/search', async (req, res) => {
+  try {
+    const searchQuery = req.query.name;
+    
+    const devices = await collection.find({ name: { $regex: searchQuery, $options: 'i' } }).toArray();
+    
+    const response = {
+      data: devices
+    };
+
+    res.json(response);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
+
+
 
