@@ -20,7 +20,7 @@ app.listen(port, async () => {
   console.log('Server is running on port 3000!!')
 });
 
-
+// crea i filtri per i dispositivi
 app.get('/devices', async (req, res) => {
   try {
     let devices = await collection.find().toArray();
