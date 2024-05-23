@@ -9,6 +9,7 @@ var collection;
 
 const cors = require('cors')
 app.use(cors())
+app.use(express.json())
 
 
 app.listen(port, async () => {
@@ -39,12 +40,13 @@ app.get('/devices', async (req, res) => {
   }
 });
 
+// crea la ricerca per i dispositvi
 app.get('/devices/search', async (req, res) => {
   try {
     const searchQuery = req.query.name;
-    
+
     const devices = await collection.find({ name: { $regex: searchQuery, $options: 'i' } }).toArray();
-    
+
     const response = {
       data: devices
     };
@@ -56,4 +58,22 @@ app.get('/devices/search', async (req, res) => {
 });
 
 
+// aggiunge nuovi dispositivi
+app.post('/devices', async (req, res) => {
+  try {
+    const { name, vehicle, status, battery } = req.body;
 
+    const newDevice = {
+      name: name,
+      vehicle: vehicle,
+      status: status,
+      battery: battery
+    };
+
+    const result = await collection.insertOne(newDevice);
+    return res.json(result);
+
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
