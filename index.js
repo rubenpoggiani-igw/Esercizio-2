@@ -77,3 +77,5 @@ app.post('/devices', async (req, res) => {
     console.error('Error:', error);
   }
 });
+
+app.delete('/devices', function (req, res) {})
